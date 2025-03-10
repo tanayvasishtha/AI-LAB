@@ -1,0 +1,62 @@
+#2. Comparative Study
+#Objective: Evaluate and compare different search algorithms.
+#Problem Statement: Given a domain (e.g., pathfinding, puzzle solving), evaluate BFS, DFS, Bi-directional BFS, Uniform Cost Search, Best-First Search, and A* Search.
+#Tasks: Analyze the followings
+#• Efficiency: Nodes explored; time taken.
+#• Optimality: Whether the solution is optimal.
+#• Create visualizations to compare algorithms
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Data for comparison
+algorithms = ['BFS', 'DFS', 'Bi-directional BFS', 'Uniform Cost Search', 'Best-First Search', 'A* Search']
+nodes_explored = [100, 150, 80, 120, 90, 70]  # Example data
+time_taken = [0.5, 0.7, 0.4, 0.6, 0.5, 0.3]  # Example data in seconds
+optimality = [True, False, True, True, True, True]  # Is the algorithm optimal?
+
+# Create figure with multiple subplots
+fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(12, 15))
+
+# Bar chart for nodes explored
+x = np.arange(len(algorithms))
+width = 0.4
+ax1.bar(x, nodes_explored, width, color='royalblue')
+ax1.set_xlabel('Algorithms')
+ax1.set_ylabel('Number of Nodes')
+ax1.set_title('Nodes Explored by Different Search Algorithms')
+ax1.set_xticks(x)
+ax1.set_xticklabels(algorithms)
+
+# Add data labels
+for i, v in enumerate(nodes_explored):
+    ax1.text(i, v + 3, str(v), ha='center')
+
+# Bar chart for time taken
+ax2.bar(x, time_taken, width, color='orange')
+ax2.set_xlabel('Algorithms')
+ax2.set_ylabel('Time (seconds)')
+ax2.set_title('Execution Time of Different Search Algorithms')
+ax2.set_xticks(x)
+ax2.set_xticklabels(algorithms)
+
+# Add data labels
+for i, v in enumerate(time_taken):
+    ax2.text(i, v + 0.03, str(v), ha='center')
+
+# Heatmap for optimality
+optimality_numeric = [1 if opt else 0 for opt in optimality]
+ax3.imshow([optimality_numeric], cmap='RdYlGn', aspect='auto')
+ax3.set_yticks([])
+ax3.set_xticks(np.arange(len(algorithms)))
+ax3.set_xticklabels(algorithms)
+ax3.set_title('Optimality of Different Search Algorithms')
+
+# Add text annotations
+for i, opt in enumerate(optimality):
+    text = "Optimal" if opt else "Not Optimal"
+    ax3.text(i, 0, text, ha='center', va='center')
+
+plt.tight_layout()
+plt.savefig('search_algorithms_comparison.png')
+plt.show()
